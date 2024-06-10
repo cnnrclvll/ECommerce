@@ -13,11 +13,14 @@
     "type": "git",
     "url": "git@github.com:cnnrclvll/ECommerce.git"
   },
-  "keywords": ["ecommerce"],
+  "keywords": [
+    "ecommerce"
+  ],
   "author": "https://github.com/cnnrclvll",
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.4.5",
+    "express": "^4.19.2",
     "mysql2": "^3.10.0",
     "sequelize": "^6.37.3"
   }

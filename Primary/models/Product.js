@@ -10,6 +10,7 @@ Product.init(
   { // DONE: added data keys for product.
     id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
