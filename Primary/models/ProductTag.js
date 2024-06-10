@@ -4,8 +4,8 @@ const sequelize = require('../config/connection');
 
 class ProductTag extends Model {}
 
-ProductTag.init( // defined keys
-  {
+ProductTag.init(
+  { // DONE: added data keys for product tag.
     product_id: {
       type: DataTypes.INTEGER,
       references: {

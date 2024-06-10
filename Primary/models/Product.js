@@ -6,8 +6,8 @@ const sequelize = require('../config/connection');
 // Initialize Product model (table) by extending off Sequelize's Model class
 class Product extends Model {}
 
-Product.init( // defined keys for product model
-  {
+Product.init(
+  { // DONE: added data keys for product.
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

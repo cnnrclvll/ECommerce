@@ -5,7 +5,7 @@ const sequelize = require('../config/connection.js');
 class Tag extends Model {}
 
 Tag.init(
-  {
+  { // DONE: added data keys for tag.
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -16,7 +16,6 @@ Tag.init(
       type: DataTypes.STRING,
       allowNull: false
     }
-    // define columns
   },
   {
     sequelize,
