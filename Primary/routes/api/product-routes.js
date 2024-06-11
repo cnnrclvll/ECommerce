@@ -121,8 +121,8 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// delete product
 router.delete('/:id', async (req, res) => {
-  // DONE: delete route for deleting categories
   try {
     const prodData = await Product.destroy({
       where: {

@@ -3,8 +3,9 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
+// get all categories
 router.get('/', async (req, res) => {
-  try { // DONE: get route for all categories
+  try {
     const catData = await Category.findAll({
       include: [{ model: Product }]
     });
@@ -18,15 +19,16 @@ router.get('/', async (req, res) => {
   }
 });
 
+// get single category
 router.get('/:id', async (req, res) => {
-  try { // DONE: get route for a single category
+  try {
     const catData = await Category.findOne({
       where: {
         id: req.params.id,
       },
       include: [{ model: Product }]
     });
-    if (!catData.length) {
+    if (!catData) {
       res.status(404).json({ message: 'No matching category in record!' });
       return;
     }
@@ -36,8 +38,9 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// create category
 router.post('/', async (req, res) => {
-  try { // DONE: post route for creating new categories
+  try {
     const catData = await Category.create(req.body);
     res.status(200).json(catData);
   } catch (err) {
@@ -45,8 +48,9 @@ router.post('/', async (req, res) => {
   }
 });
 
+// update category
 router.put('/:id', async (req, res) => {
-  try { // DONE: put route for updating categories
+  try {
     const catData = await Category.update({
       category_name: req.body.category_name
     },
@@ -54,14 +58,25 @@ router.put('/:id', async (req, res) => {
       where: {
         id: req.params.id
       }
+    })
+    if (catData == 1) {
+    const updatedCat = await Category.findOne({
+      where: {
+        id: req.params.id,
+      },
+      include: [{ model: Product }],
     });
+    res.status(200).json(updatedCat);
+    } else {
+      res.status(400).json({ message: 'Failed to update category!' });
+    }
   } catch (err) {
     res.status(400).json(err, { message: 'Failed to update category!' });
   }
 });
 
+// delete category
 router.delete('/:id', async (req, res) => {
-  // DONE: delete route for deleting categories
   try {
     const catData = await Category.destroy({
       where: {
