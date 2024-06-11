@@ -7,9 +7,12 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 router.get('/', async (req, res) => {
   try { // DONE: get route for all products
     const prodData = await Product.findAll({
-      include: [{ model: Category }, { model: Tag }]
+      include: [
+        { model: Category },
+        { model: Tag, through: ProductTag }
+      ]
     });
-    if (!prodData) {
+    if (!prodData.length) {
       res.status(404).json({ message: 'No products in record!' });
       return;
     }
@@ -26,9 +29,12 @@ router.get('/:id', async (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: [{ model: Category }, { model: Tag }]
+      include: [
+        { model: Category },
+        { model: Tag, through: ProductTag }
+      ]
     });
-    if (!prodData) {
+    if (!prodData.length) {
       res.status(404).json({ message: 'No matching product in record!' });
       return;
     }
@@ -115,8 +121,23 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+router.delete('/:id', async (req, res) => {
+  // DONE: delete route for deleting categories
+  try {
+    const prodData = await Product.destroy({
+      where: {
+        id: req.params.id
+      }
+    });
+
+    if (prodData) {
+      res.json({ message: 'Product deleted successfully!' });
+    } else {
+      res.status(404).json({ message: 'Product not found!' });
+    }
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to delete product!', error: err });
+  }
 });
 
 module.exports = router;

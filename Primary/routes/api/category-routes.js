@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     const catData = await Category.findAll({
       include: [{ model: Product }]
     });
-    if (!catData) {
+    if (!catData.length) {
       res.status(404).json({ message: 'No categories in record!' });
       return;
     }
@@ -26,7 +26,7 @@ router.get('/:id', async (req, res) => {
       },
       include: [{ model: Product }]
     });
-    if (!catData) {
+    if (!catData.length) {
       res.status(404).json({ message: 'No matching category in record!' });
       return;
     }
@@ -62,18 +62,21 @@ router.put('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   // DONE: delete route for deleting categories
+  try {
     const catData = await Category.destroy({
-    where: {
-      id: req.params.id
-    }
-  })
-  .then((deletedCat) => {
-    if (deletedCat === 1) {
+      where: {
+        id: req.params.id
+      }
+    });
+
+    if (catData) {
       res.json({ message: 'Category deleted successfully!' });
     } else {
-      res.status(400).json({ message: 'Failed to delete category!' })
+      res.status(404).json({ message: 'Category not found!' });
     }
-  });
+  } catch (err) {
+    res.status(500).json({ message: 'Failed to delete category!', error: err });
+  }
 });
 
 module.exports = router;
