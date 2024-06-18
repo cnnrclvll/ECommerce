@@ -34,7 +34,7 @@ router.get('/:id', async (req, res) => {
         { model: Tag, through: ProductTag }
       ]
     });
-    if (!prodData.length) {
+    if (!prodData) {
       res.status(404).json({ message: 'No matching product in record!' });
       return;
     }
