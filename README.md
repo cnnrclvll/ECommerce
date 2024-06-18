@@ -3,6 +3,8 @@
 
 # ECommerce MySQL Database Manager
 
+Tutorial Video: (https://app.screencastify.com/v3/watch/IuMdzfdMXyajJgX8gdGv)
+
 ## Table of Contents
 - [Description](#description)
 - [Installation/Usage](#installation/usage)
